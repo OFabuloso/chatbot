@@ -14,12 +14,10 @@ if($total_clientes == 1){
 $_SESSION['email'] = $email_cliente;
 $_SESSION['senha'] = $senha_cliente;
 echo "<meta http-equiv='refresh' content='0;url=index.php'>";
-}else{
+}
+else{
     echo "<meta http-equiv='refresh' content='0;url=login_falhou.php'>";
-   }
-
+}
 
 print_r($_REQUEST);
-
-
 ?>

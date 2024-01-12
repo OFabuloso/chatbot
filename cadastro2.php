@@ -2,7 +2,7 @@
 
 require_once('conn.php');
 
-print_r($_REQUEST);
+C
 
 ?>
 

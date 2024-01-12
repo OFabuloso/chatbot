@@ -24,4 +24,4 @@
       <p class="message">Não tenho conta <a href="cadastro.php">Clica aqui</a></p>
      </form>
   </div>
-</div>
+</div>  

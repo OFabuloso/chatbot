@@ -1,4 +1,40 @@
 <?php
+session_start();
+require_once('conn.php');
+error_reporting(0);
+ini_set("display_errors", 0 );
+
+if($_SESSION['email'] == True){
+
+
+  $email_cliente= $_SESSION['email'];
+  $busca_email = "SELECT * FROM login WHERE email ='$email_cliente'";
+  $resultado_busca = mysqli_query($conn,$busca_email);
+  $total_clientes = mysqli_num_rows($resultado_busca);
+
+
+  while($dados_usuario = mysqli_fetch_array($resultado_busca)){
+    $email_cliente = $dados_usuario['email'];
+    $senha_cliente = $dados_usuario['senha'];
+    $nome_cliente = $dados_usuario['nome'];
+    $tipo_cliente = $dados_usuario['tipo'];
+  }
+
+
+}else{
+  echo "<meta http-equiv='refresh' content='0;url=login.php'>";   
+
+?>
+
+
+<script type="text/javascript">
+	window.location="login.php";
+	</script>
+
+
+<?php  
+
+}
 
 $adm = 0;
 
@@ -29,8 +65,14 @@ $adm = 0;
           <li class="menu-item "><a href="index.php" data-scroll>VENDAS</a></li>
           <li class="menu-item"><a href="produtos.php" data-scroll>PRODUTOS</a></li>
           <li class="menu-item"><a href="pedidos.php" data-scroll>PEDIDOS</a></li>
-          <li class="menu-item active"><a href="config.php" data-scroll>CONFIGURAÇÕES</a></li>      
-          <li class="menu-item"><a href="admin.php" data-scroll>ADMIN</a></li>      
+          <li class="menu-item active"><a href="config.php" data-scroll>CONFIGURAÇÕES</a></li>
+<?php
+if($tipo_cliente == 2){
+  ?>  
+          <li class="menu-item"><a href="admin.php" data-scroll>ADMIN</a></li>
+<?php
+        }
+?>   
           <li class="menu-item"><a href="sair.php" data-scroll>SAIR</a></li>
     
         </ul>
@@ -83,7 +125,14 @@ $adm = 0;
   </style>
 </head>
 <body>
-<form method="post" action="" onsubmit="return verificaSenhas()">
+<?php
+$ok=$_GET['senha'];
+
+if($ok ==True){
+  echo "Senha atualizada com sucesso";
+}
+  ?>
+<form method="post" action="senha_up.php" onsubmit="return verificaSenhas()">
   <h1>Adicionar nova senha</h1>
   <label for="senha">Nova senha:</label>
   <input type="password" id="senha" name="senha" required>
